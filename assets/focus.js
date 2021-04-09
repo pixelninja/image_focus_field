@@ -10,15 +10,23 @@ window.onload = (event) => {
 
 		// No Media Library field has been linked to the focus field, so stop going any further
 		if (!image_field) {
-			field.querySelector('.image_focus_wrapper').innerHTML = '<p><i>No Media Library Field has been linked to this Image Focus Field</i></p>';
+			field.querySelector('.image_focus_wrapper').innerHTML = '<p><i>No Media Library Field has been linked to this Image Focus Field.</i></p>';
 			return false;
 		}
 
 		// Get the image path
 		const image_path = image_field.querySelector(':scope input[name$="[0][value]"]').value || false;
 
+		// No file has been saved yet so display a message instead
+		if (!image_path) {
+			field.querySelector('.image_focus_wrapper').innerHTML = '<p><i>An image must be uploaded and saved before selecting the focal point.</i></p>';
+		}
+		// The file attached is not an image
+		else if (image_path && !/(jpg|gif|png|jpeg)$/i.test(image_path)) {
+			field.querySelector('.image_focus_wrapper').innerHTML = '<p><i>The file selected is not an image. Please attach a JPG, PNG or GIF.</i></p>';
+		}
 		// We have an image set, so display the visualiser
-		if (image_path) {
+		else if (image_path) {
 			// Absolute path of the image
 			const full_image_path = Symphony.Context.get('root') + image_path;
 			// The HTML to add.
@@ -85,10 +93,6 @@ window.onload = (event) => {
 					el.style.objectPosition = `${coords[0]}% ${coords[1]}%`;
 				});
 			}
-		}
-		// No image has been saved yet so display a message instead
-		else {
-			field.querySelector('.image_focus_wrapper').innerHTML = '<p><i>An image must be uploaded and saved before selecting the focal point</i></p>';
 		}
 	});
 };
