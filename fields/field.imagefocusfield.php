@@ -104,14 +104,6 @@
 			}
 		}
 
-		/**
-		 * Store the information when an entry is created or edited:
-		 * @param  $data			The data
-		 * @param  $status			The status
-		 * @param bool $simulate	Simulate or not?
-		 * @param null $entry_id	The ID of the entry
-		 * @return array			The result
-		 */
 		public function processRawFieldData($data, &$status, &$message = NULL, $simulate = false, $entry_id = NULL) {
 			$status = self::__OK__;
 
@@ -129,38 +121,16 @@
 			return $result;
 		}
 
-		/**
-		 * Add the XML element to the datasource output:
-		 * @param  $wrapper			The wrapper, provided by Symphony
-		 * @param  $data			The data
-		 * @param bool $encode		Should encoding be used?
-		 * @return void
-		 */
 		public function appendFormattedElement(XMLElement &$wrapper, $data, $encode = false, $mode = NULL, $entry_id = NULL) {
 			if(empty($data)) return;
 
 			$wrapper->appendChild(
 				new XMLElement(
-					$this->get('element_name'), null, array('xpos' => $data['xpos'], 'ypos' => $data['ypos'], 'unit' => $unit)
+					$this->get('element_name'), null, array('xpos' => $data['xpos'], 'ypos' => $data['ypos'])
 				)
 			);
 		}
 
-		/**
-		 * The data to show in the table
-		 * @param  $data					The data
-		 * @param null|XMLElement $link		The link
-		 * @return							The value to show in the table
-		 */
-		function prepareTableValue($data, ?XMLElement $link = NULL, $entry_id = NULL) {
-			if(empty($data)) return;
-			return $data['xpos'].$unit.', '.$data['ypos'].$unit;
-		}
-
-		/**
-		 * Create the table for each field
-		 * @return bool
-		 */
 		public function createTable() {
 			return Symphony::Database()->query(
 				"CREATE TABLE IF NOT EXISTS `tbl_entries_data_" . $this->get('id') . "` (
