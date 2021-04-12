@@ -29,6 +29,13 @@ window.onload = (event) => {
 		else if (image_path) {
 			// Absolute path of the image
 			const full_image_path = Symphony.Context.get('root') + image_path;
+
+			// Image can't be found or loaded, so don't continue
+			if (!imageExists(full_image_path)) {
+				field.querySelector('.image_focus_wrapper').innerHTML = '<p><i>The image can\'t be found. Check it exists or check folder permissions.</i></p>';
+				return false
+			}
+
 			// The HTML to add.
 			let html = `
 				<div class="image_focus">
@@ -95,4 +102,13 @@ window.onload = (event) => {
 			}
 		}
 	});
+
+	function imageExists(img){
+		var http = new XMLHttpRequest();
+
+		http.open('HEAD', img, false);
+		http.send();
+
+		return http.status != 404;
+	}
 };
