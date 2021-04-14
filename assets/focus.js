@@ -58,12 +58,18 @@ window.onload = (event) => {
 					</div>
 				</div>
 			`;
+
 			// Add the HTML
 			field.querySelector('.image_focus_wrapper').innerHTML = html;
+
 			// Target the crosshair
-			let crosshair = field.querySelector('.crosshair');
+			const crosshair = field.querySelector('.crosshair');
+
+			// Target the image
+			const image = field.querySelector('.image_focus img');
+
 			// On click of the primary image, update the input value and the visualiser
-			field.querySelector('.image_focus img').onclick = function(e) {
+			image.onclick = function(e) {
 				// Store the body bounds to offset the top
 				const body_bounds = document.body.getBoundingClientRect();
 				// Image offsets
@@ -87,17 +93,22 @@ window.onload = (event) => {
 
 			// Get the coordinates on load
 			const coords = field.querySelector('input[type="hidden"]').value.split(',');
+
 			// If some have already been set
 			if(coords.length) {
-				const image = field.querySelector('.image_focus img');
-				const x = image.width * (coords[0] / 100);
-				const y = image.height * (coords[1] / 100);
-				// Update the crosshair
-				crosshair.style.left = `${x}px`;
-				crosshair.style.top = `${y}px`;
-				// Update each visualiser image position
-				field.querySelectorAll('.image_focus_visualiser img').forEach(el => {
-					el.style.objectPosition = `${coords[0]}% ${coords[1]}%`;
+				// Image needs to have fully loaded to retrieve width/height
+				imagesLoaded(image, function () {
+					const x = image.width * (coords[0] / 100);
+					const y = image.height * (coords[1] / 100);
+
+					// Update the crosshair
+					crosshair.style.left = `${x}px`;
+					crosshair.style.top = `${y}px`;
+
+					// Update each visualiser image position
+					field.querySelectorAll('.image_focus_visualiser img').forEach(el => {
+						el.style.objectPosition = `${coords[0]}% ${coords[1]}%`;
+					});
 				});
 			}
 		}

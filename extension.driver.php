@@ -53,7 +53,8 @@
 				&& Administration::instance()->Page instanceof HTMLPage
 			) {
 				Administration::instance()->Page->addStylesheetToHead(URL . '/extensions/image_focus_field/assets/focus.css', 'screen', 100, false);
-				Administration::instance()->Page->addScriptToHead(URL . '/extensions/image_focus_field/assets/focus.js', 100, false);
+				Administration::instance()->Page->addScriptToHead(URL . '/extensions/image_focus_field/assets/vendor/imagesLoaded.min.js', 100, false);
+				Administration::instance()->Page->addScriptToHead(URL . '/extensions/image_focus_field/assets/focus.js', 101, false);
 			}
 		}
 	}
