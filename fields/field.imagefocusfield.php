@@ -110,7 +110,7 @@
 			$coords = explode(',', $data['position']);
 
 			if(count($coords) != 2) {
-				$coords = array(0, 0);
+				$coords = array(50, 50);
 			}
 
 			$result = array(

@@ -13,6 +13,9 @@
 		</author>
 	</authors>
 	<releases>
+		<release version="1.4" date="2021-06-08" min="2.7.x">
+			- start at 50/50 instead of 0/0 for better default positioning
+		</release>
 		<release version="1.3" date="2021-04-14" min="2.7.x">
 			- add imagesLoaded before checking for image coordinates to ensure width/height is returned
 		</release>
