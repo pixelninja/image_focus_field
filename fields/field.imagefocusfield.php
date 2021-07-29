@@ -114,8 +114,8 @@
 			}
 
 			$result = array(
-				'xpos' => $coords[0],
-				'ypos' => $coords[1]
+				'xpos' => ((float) $coords[0] < 0) ? "0" : $coords[0],
+				'ypos' => ((float) $coords[1] < 0) ? "0" : $coords[1]
 			);
 
 			return $result;
