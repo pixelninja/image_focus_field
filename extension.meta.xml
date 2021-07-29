@@ -13,6 +13,9 @@
 		</author>
 	</authors>
 	<releases>
+		<release version="1.5" date="2021-07-30" min="2.7.x">
+			- Make sure we don't get negative values as this can cause errors when positioning on the frontend
+		</release>
 		<release version="1.4" date="2021-06-08" min="2.7.x">
 			- start at 50/50 instead of 0/0 for better default positioning
 		</release>
